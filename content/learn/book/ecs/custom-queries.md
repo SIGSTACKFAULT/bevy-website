@@ -28,12 +28,12 @@ struct CombatantQuery
 
 Unlike [`Query`](../systems-queries) arguments which are regular old references, in a custom query we write `&'static`. This is just a contrivance to avoid having to constantly write lifetime parameters on any system that uses the query. [Read more about why below.](#why-the-static)
 
-Let's use it in a system:
+## Our First System
 
-```
+```rs
 /// print the Life stats of all combatants in combat
 fn print_in_combat_life_stats(
-  query: CombatantQuery, // isn't this so much better?
+  query: Query<CombatantQuery>, // isn't this so much better?
 ) {
   for combatant in query.iter() {
     // ...
