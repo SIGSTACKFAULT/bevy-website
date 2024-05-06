@@ -6,11 +6,6 @@ weight = 9
 status = 'hidden'
 +++
 
-{% todo() %}
-* steal from [bevy/examples/custom_query_param.rs](https://github.com/bevyengine/bevy/blob/main/examples/ecs/custom_query_param.rs)
-* recommend `duplicate` crate for impling for the ro and rw version of a custom query
-* think of a good example
-{% end %}
 
 Ever find yourself writing out the same dozen systems parameters, over and over? Fear not! **Custom Queries** are here to save you.
 
@@ -21,8 +16,9 @@ use bevy::prelude::*;
 use bevy::ecs::query::{QueryData, QueryFilter};
 
 #[derive(QueryData)]
-struct CombatantQuery {
+struct CombatantQuery
     _marker: &'static Combatant,
+    name: &'static Name,
     life: &'static Life,
     stats: &'static Stats,
     allegiance: &'static Allegiance,
@@ -31,6 +27,25 @@ struct CombatantQuery {
 ```
 
 Unlike [`Query`](../systems-queries) arguments which are regular old references, in a custom query we write `&'static`. This is just a contrivance to avoid having to constantly write lifetime parameters on any system that uses the query. [Read more about why below.](#why-the-static)
+
+Let's use it in a system:
+
+```
+/// print the Life stats of all combatants in combat
+fn print_in_combat_life_stats(
+  query: CombatantQuery, // isn't this so much better?
+) {
+  for combatant in query.iter() {
+    // ...
+  }
+}
+```
+
+{% todo() %}
+* steal from [bevy/examples/custom_query_param.rs](https://github.com/bevyengine/bevy/blob/main/examples/ecs/custom_query_param.rs)
+* recommend `duplicate` crate for impling for the ro and rw version of a custom query
+* think of a good example
+{% end %}
 
 ## Why the `&'static`?
 
