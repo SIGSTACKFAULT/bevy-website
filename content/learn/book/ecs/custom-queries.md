@@ -36,7 +36,9 @@ fn print_in_combat_life_stats(
   query: Query<CombatantQuery>, // isn't this so much better?
 ) {
   for combatant in query.iter() {
-    // ...
+    if combatant.in_combat.is_some() { // do they have the InCombat component?
+      println!("{:>20}: {}", combatant.name, combatant.health);
+    }
   }
 }
 ```
