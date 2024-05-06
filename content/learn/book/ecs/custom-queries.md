@@ -30,9 +30,7 @@ struct CombatantQuery {
 }
 ```
 
-Unlike [`Query`](../systems-queries) arguments which are regular old references, in a custom query we write `&'static`. This is just a contrivance to avoid having to constantly write lifetime parameters on any function that uses. [Read more about why below.](#why-the-static)
-
-
+Unlike [`Query`](../systems-queries) arguments which are regular old references, in a custom query we write `&'static`. This is just a contrivance to avoid having to constantly write lifetime parameters on any system that uses the query. [Read more about why below.](#why-the-static)
 
 ## Why the `&'static`?
 
